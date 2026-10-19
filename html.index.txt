@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="ms">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seminit Jadi Doktor Muda - Edisi Ceria & Interaktif</title>
+<!-- Tailwind CSS CDN -->
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          brandTeal: '#00a896',
+          brandDarkTeal: '#028090',
+          brandYellow: '#fbc531',
+          brandPink: '#ff5e7e',
+          brandPurple: '#a55eea',
+          brandGreen: '#2ed573',
+        },
+        keyframes: {
+          floatUp: {
+            '0%': { transform: 'translateY(100vh) rotate(0deg)', opacity: '0.8' },
+            '100%': { transform: 'translateY(-10vh) rotate(360deg)', opacity: '0' }
+          },
+          bounceSlow: {
+            '0%, 100%': { transform: 'translateY(-6px)' },
+            '50%': { transform: 'translateY(6px)' }
+          },
+          popZoom: {
+            '0%': { transform: 'scale(0.8)', opacity: '0' },
+            '80%': { transform: 'scale(1.08)' },
+            '100%': { transform: 'scale(1)', opacity: '1' }
+          },
+          wiggle: {
+            '0%, 100%': { transform: 'rotate(-5deg)' },
+            '50%': { transform: 'rotate(5deg)' }
+          }
+        },
+        animation: {
+          'float': 'floatUp 12s linear infinite',
+          'bounce-slow': 'bounceSlow 2.5s ease-in-out infinite',
+          'pop-zoom': 'popZoom 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards',
+          'wiggle': 'wiggle 0.5s ease-in-out infinite'
+        }
+      }
+    }
+  }
+</script>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@600;700&display=swap');
+  
+  body {
+    font-family: 'Fredoka', 'Quicksand', sans-serif;
+    background: linear-gradient(135deg, #a8ff78 0%, #78ffd6 100%);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+
+  /* 3D Button Style Effects */
+  .btn-3d {
+    transition: all 0.1s ease;
+    box-shadow: 0 8px 0 rgba(0, 0, 0, 0.15);
+  }
+  .btn-3d:active {
+    transform: translateY(4px);
+    box-shadow: 0 4px 0 rgba(0, 0, 0, 0.15);
+  }
+
+  /* Custom Floating Bubbles */
+  .floating-bg-item {
+    position: absolute;
+    pointer-events: none;
+    z-index: 0;
+  }
+</style>
+</head>
+<body class="flex flex-col items-center justify-between p-3 md:p-6 text-slate-800 relative selection:bg-yellow-300">
+
+<!-- Dynamic Confetti Canvas Overlay -->
+<canvas id="confettiCanvas" class="pointer-events-none fixed inset-0 z-50 w-full h-full"></canvas>
+
+<!-- Floating Background Elements for Joyful Vibes -->
+<div class="fixed inset-0 overflow-hidden pointer-events-none z-0">
+  <div class="floating-bg-item text-4xl left-[10%] animate-float" style="animation-delay: 0s;">🩺</div>
+  <div class="floating-bg-item text-4xl left-[25%] animate-float" style="animation-delay: 3s;">🩹</div>
+  <div class="floating-bg-item text-4xl left-[45%] animate-float" style="animation-delay: 6s;">⭐</div>
+  <div class="floating-bg-item text-4xl left-[65%] animate-float" style="animation-delay: 1.5s;">🎈</div>
+  <div class="floating-bg-item text-4xl left-[85%] animate-float" style="animation-delay: 4.5s;">💊</div>
+</div>
+
+<main class="w-full max-w-4xl mx-auto flex flex-col items-center gap-4 relative z-10 my-auto">
+
+  <!-- Header Badges & Title -->
+  <header class="text-center w-full space-y-2">
+    <div class="inline-flex items-center gap-2 bg-white px-5 py-2 rounded-full shadow-lg border-2 border-yellow-300 text-brandDarkTeal font-extrabold text-sm md:text-base animate-bounce-slow">
+      <span>🚑 CABARAN DOKTOR MUDA CILIK</span>
+      <span class="w-3 h-3 rounded-full bg-emerald-400 animate-ping"></span>
+    </div>
+
+    <h1 class="text-3xl md:text-5xl font-black text-teal-900 tracking-wide drop-shadow-md flex items-center justify-center gap-2">
+      <span class="animate-wiggle inline-block">🩺</span> Seminit Jadi Doktor Muda <span class="animate-wiggle inline-block">✨</span>
+    </h1>
+
+    <!-- Physical Gesture Guide -->
+    <div class="flex justify-center gap-3 flex-wrap text-sm md:text-base pt-1">
+      <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-2xl border-2 border-emerald-300 shadow-md font-bold flex items-center gap-2 text-emerald-800">
+        <span class="text-2xl">👍</span> <span><strong>BETUL</strong> = Ibu Jari Atas</span>
+      </div>
+      <div class="bg-white/90 backdrop-blur px-4 py-2 rounded-2xl border-2 border-rose-300 shadow-md font-bold flex items-center gap-2 text-rose-800">
+        <span class="text-2xl">🙅</span> <span><strong>SALAH</strong> = Silangkan Tangan</span>
+      </div>
+    </div>
+  </header>
+
+  <!-- Stats & Controls Bar -->
+  <section class="w-full grid grid-cols-2 md:grid-cols-4 gap-3 text-center font-bold text-slate-700">
+    <!-- Progress Indicator -->
+    <div class="bg-white/95 p-3 rounded-2xl shadow-md border-b-4 border-teal-400 flex flex-col justify-center">
+      <span class="text-xs text-slate-400 uppercase tracking-wider font-extrabold">Kemajuan Soalan</span>
+      <span id="progress" class="text-lg md:text-xl text-teal-700 font-black">Soalan 1 / 6</span>
+    </div>
+
+    <!-- Timer Box -->
+    <div class="bg-white/95 p-3 rounded-2xl shadow-md border-b-4 border-amber-400 flex flex-col justify-center">
+      <span class="text-xs text-slate-400 uppercase tracking-wider font-extrabold">Masa Baki</span>
+      <span id="timer" class="text-lg md:text-xl text-amber-600 font-black flex items-center justify-center gap-1">
+        ⏱️ <span>60</span>s
+      </span>
+    </div>
+
+    <!-- Score Box -->
+    <div class="bg-white/95 p-3 rounded-2xl shadow-md border-b-4 border-pink-400 flex flex-col justify-center relative">
+      <span class="text-xs text-slate-400 uppercase tracking-wider font-extrabold">Markah & Combo</span>
+      <div class="flex items-center justify-center gap-2">
+        <span id="score" class="text-lg md:text-xl text-pink-500 font-black">⭐ 0</span>
+        <span id="comboBadge" class="hidden text-xs bg-yellow-400 text-slate-900 font-black px-2 py-0.5 rounded-full animate-bounce">COMBO x2!</span>
+      </div>
+    </div>
+
+    <!-- Settings Controls -->
+    <div class="bg-white/95 p-3 rounded-2xl shadow-md border-b-4 border-purple-400 flex flex-col justify-center">
+      <span class="text-xs text-slate-400 uppercase tracking-wider font-extrabold">Audio & Kawalan</span>
+      <div class="flex justify-center items-center gap-2 text-sm">
+        <button id="bgmToggle" class="px-2 py-1 bg-purple-100 hover:bg-purple-200 text-purple-700 rounded-xl transition font-bold" title="Muzik Latar">
+          🎵 Musik
+        </button>
+        <button id="soundToggle" class="px-2 py-1 bg-teal-100 hover:bg-teal-200 text-teal-700 rounded-xl transition font-bold" title="Kesan Bunyi">
+          🔊 Bunyi
+        </button>
+        <button id="fullscreen" class="p-1 px-2 bg-slate-100 hover:bg-slate-200 rounded-xl transition font-bold" title="Skrin Penuh">
+          ⛶
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Active Quiz Card -->
+  <section id="quizCard" class="w-full bg-white border-4 border-teal-500 rounded-3xl p-6 md:p-8 shadow-2xl flex flex-col items-center justify-between min-h-[380px] relative overflow-hidden transition-all duration-300">
+    
+    <!-- Moving Ambulance Progress Track -->
+    <div class="w-full bg-slate-100 h-4 rounded-full overflow-hidden mb-4 border border-slate-200 relative">
+      <div id="progressBar" class="bg-gradient-to-r from-emerald-400 to-teal-500 h-full w-0 transition-all duration-500 rounded-full"></div>
+    </div>
+
+    <!-- Mascot & Icon Frame -->
+    <div class="flex items-center gap-4 my-2">
+      <!-- Animated Doctor Mascot Avatar -->
+      <div id="mascot" class="text-5xl md:text-6xl animate-bounce-slow filter drop-shadow-md">
+        🧑‍⚕️
+      </div>
+      <!-- Question Icon -->
+      <div id="icon" class="text-6xl md:text-7xl bg-teal-50 p-3 rounded-3xl border-2 border-teal-200 shadow-inner transform hover:scale-110 transition-transform cursor-pointer">
+        🩺
+      </div>
+    </div>
+
+    <!-- Question Statement Text -->
+    <h2 id="statement" class="text-2xl md:text-3xl font-extrabold text-center text-slate-800 leading-relaxed my-3 max-w-2xl">
+      Tekan 'Mulakan Kuiz' untuk memulakan cabaran Doktor Muda Cilik!
+    </h2>
+
+    <!-- Interactive Answer Selection Buttons -->
+    <div id="interactiveOptions" class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4 mt-4" hidden>
+      <button id="btnTrue" onclick="submitAnswer(true)" class="btn-3d flex items-center justify-center gap-3 bg-emerald-500 hover:bg-emerald-400 active:bg-emerald-600 text-white font-black text-2xl md:text-3xl py-4 px-6 rounded-2xl border-b-4 border-emerald-700">
+        <span class="text-4xl animate-bounce">👍</span>
+        <span>BETUL</span>
+      </button>
+
+      <button id="btnFalse" onclick="submitAnswer(false)" class="btn-3d flex items-center justify-center gap-3 bg-rose-500 hover:bg-rose-400 active:bg-rose-600 text-white font-black text-2xl md:text-3xl py-4 px-6 rounded-2xl border-b-4 border-rose-700">
+        <span class="text-4xl animate-bounce">🙅</span>
+        <span>SALAH</span>
+      </button>
+    </div>
+
+    <!-- Answer Result & Explanation Box -->
+    <div id="answerBox" class="w-full mt-4 p-5 rounded-2xl font-bold text-lg md:text-xl text-center shadow-md hidden animate-pop-zoom">
+    </div>
+
+  </section>
+
+  <!-- Action Buttons Row -->
+  <footer class="w-full flex flex-wrap justify-center gap-4 pt-2">
+    <button id="start" class="btn-3d bg-brandDarkTeal hover:bg-teal-600 text-white font-black text-xl md:text-2xl px-10 py-4 rounded-2xl border-b-4 border-teal-900 flex items-center gap-3">
+      <span class="text-2xl">🚀</span> <span>Mulakan Kuiz Sekarang!</span>
+    </button>
+
+    <button id="reveal" class="btn-3d bg-amber-400 hover:bg-amber-300 text-slate-900 font-black text-lg md:text-xl px-6 py-3.5 rounded-2xl border-b-4 border-amber-600 hidden">
+      <span>👀</span> <span>Semak Jawapan Guru</span>
+    </button>
+
+    <button id="next" class="btn-3d bg-brandTeal hover:bg-teal-500 text-white font-black text-lg md:text-xl px-8 py-3.5 rounded-2xl border-b-4 border-teal-800 hidden disabled:opacity-40 disabled:cursor-not-allowed">
+      <span>Seterusnya ➜</span>
+    </button>
+
+    <button id="restart" class="btn-3d bg-white hover:bg-slate-100 text-teal-700 border-2 border-teal-500 font-black text-lg md:text-xl px-8 py-3.5 rounded-2xl border-b-4 border-teal-300 hidden">
+      <span>↻ Main Semula</span>
+    </button>
+  </footer>
+
+  <p class="text-xs md:text-sm text-teal-900 font-bold text-center bg-white/70 backdrop-blur px-4 py-1.5 rounded-full border border-teal-200 shadow-sm">
+    💡 Murid boleh menekan butang pada skrin atau menunjukkan isyarat fizikal di dalam kelas!
+  </p>
+</main>
+
+<script>
+// Web Audio API Synthesizer Engine (No external sound file dependencies)
+const SoundEngine = {
+  ctx: null,
+  sfxMuted: false,
+  bgmMuted: true,
+  bgmInterval: null,
+
+  init() {
+    if (!this.ctx) {
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      if (AudioCtx) this.ctx = new AudioCtx();
+    }
+    if (this.ctx && this.ctx.state === 'suspended') {
+      this.ctx.resume();
+    }
+  },
+
+  playTone(freq, type = 'sine', duration = 0.1, delay = 0, gainVal = 0.1) {
+    if (this.sfxMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    setTimeout(() => {
+      try {
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(gainVal, this.ctx.currentTime);
+        gain.gain.exponentialRampToValueAtTime(0.0001, this.ctx.currentTime + duration);
+
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+
+        osc.start();
+        osc.stop(this.ctx.currentTime + duration);
+      } catch (e) {}
+    }, delay * 1000);
+  },
+
+  playCorrect() {
+    // Cheerful ascending arpeggio
+    const notes = [523.25, 659.25, 783.99, 1046.50, 1318.51];
+    notes.forEach((f, i) => this.playTone(f, 'triangle', 0.18, i * 0.07, 0.15));
+  },
+
+  playWrong() {
+    // Playful boing sound
+    if (this.sfxMuted) return;
+    this.init();
+    if (!this.ctx) return;
+
+    try {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'sawtooth';
+      osc.frequency.setValueAtTime(280, this.ctx.currentTime);
+      osc.frequency.exponentialRampToValueAtTime(120, this.ctx.currentTime + 0.3);
+
+      gain.gain.setValueAtTime(0.18, this.ctx.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
+
+      osc.connect(gain);
+      gain.connect(this.ctx.destination);
+
+      osc.start();
+      osc.stop(this.ctx.currentTime + 0.3);
+    } catch(e) {}
+  },
+
+  playClick() {
+    this.playTone(600, 'sine', 0.05, 0, 0.08);
+  },
+
+  playCombo() {
+    const notes = [659.25, 783.99, 987.77, 1318.51];
+    notes.forEach((f, i) => this.playTone(f, 'sine', 0.15, i * 0.05, 0.2));
+  },
+
+  playTick() {
+    this.playTone(880, 'sine', 0.03, 0, 0.05);
+  },
+
+  playVictory() {
+    const tune = [
+      { f: 523.25, d: 0.12 }, { f: 659.25, d: 0.12 }, { f: 783.99, d: 0.12 },
+      { f: 1046.50, d: 0.25 }, { f: 880.00, d: 0.12 }, { f: 1046.50, d: 0.4 }
+    ];
+    let time = 0;
+    tune.forEach(n => {
+      this.playTone(n.f, 'triangle', n.d, time, 0.2);
+      time += n.d + 0.02;
+    });
+  },
+
+  toggleBGM() {
+    this.bgmMuted = !this.bgmMuted;
+    if (!this.bgmMuted) {
+      this.startBGM();
+    } else {
+      this.stopBGM();
+    }
+    return !this.bgmMuted;
+  },
+
+  startBGM() {
+    this.init();
+    if (this.bgmInterval) clearInterval(this.bgmInterval);
+    
+    // Playful light background melody loop
+    const melody = [523.25, 0, 659.25, 0, 783.99, 659.25, 523.25, 0];
+    let step = 0;
+
+    this.bgmInterval = setInterval(() => {
+      if (this.bgmMuted) return;
+      const freq = melody[step % melody.length];
+      if (freq > 0) {
+        this.playTone(freq, 'sine', 0.12, 0, 0.03);
+      }
+      step++;
+    }, 250);
+  },
+
+  stopBGM() {
+    if (this.bgmInterval) clearInterval(this.bgmInterval);
+  }
+};
+
+const Confetti = {
+  canvas: null,
+  ctx: null,
+  particles: [],
+
+  init() {
+    this.canvas = document.getElementById('confettiCanvas');
+    this.ctx = this.canvas.getContext('2d');
+    this.resize();
+    window.addEventListener('resize', () => this.resize());
+  },
+
+  resize() {
+    if (!this.canvas) return;
+    this.canvas.width = window.innerWidth;
+    this.canvas.height = window.innerHeight;
+  },
+
+  burst() {
+    this.init();
+    const colors = ['#ff5e7e', '#2ed573', '#fbc531', '#00a896', '#a55eea', '#ff9ff3'];
+    for (let i = 0; i < 80; i++) {
+      this.particles.push({
+        x: window.innerWidth / 2,
+        y: window.innerHeight / 2,
+        vx: (Math.random() - 0.5) * 16,
+        vy: (Math.random() - 0.8) * 16,
+        size: Math.random() * 10 + 6,
+        color: colors[Math.floor(Math.random() * colors.length)],
+        rotation: Math.random() * 360,
+        rSpeed: (Math.random() - 0.5) * 10,
+        opacity: 1
+      });
+    }
+    this.animate();
+  },
+
+  animate() {
+    if (!this.particles.length) return;
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+
+    this.particles.forEach((p, idx) => {
+      p.x += p.vx;
+      p.y += p.vy;
+      p.vy += 0.3; // Gravity
+      p.rotation += p.rSpeed;
+      p.opacity -= 0.015;
+
+      this.ctx.save();
+      this.ctx.globalAlpha = Math.max(0, p.opacity);
+      this.ctx.translate(p.x, p.y);
+      this.ctx.rotate((p.rotation * Math.PI) / 180);
+      this.ctx.fillStyle = p.color;
+      this.ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size);
+      this.ctx.restore();
+
+      if (p.opacity <= 0) {
+        this.particles.splice(idx, 1);
+      }
+    });
+
+    if (this.particles.length > 0) {
+      requestAnimationFrame(() => this.animate());
+    }
+  }
+};
+
+const questions = [
+  {
+    icon: "🌡️",
+    text: "Termometer digunakan untuk mengukur suhu badan.",
+    correct: true,
+    explanation: "Termometer mengukur suhu badan dengan tepat apabila mengalami demam."
+  },
+  {
+    icon: "✂️",
+    text: "Gunting digunakan untuk melekatkan kain kasa.",
+    correct: false,
+    explanation: "Gunting digunakan untuk memotong kain pembalut. Pita pelekat yang digunakan untuk melekatkan kasa."
+  },
+  {
+    icon: "🤕",
+    text: "Kain anduh digunakan untuk menyokong tangan atau lengan yang cedera.",
+    correct: true,
+    explanation: "Kain anduh menyokong dan mengurangkan pergerakan tangan yang mengalami kecederaan."
+  },
+  {
+    icon: "🩹",
+    text: "Plaster luka digunakan untuk menutup dan melindungi luka kecil.",
+    correct: true,
+    explanation: "Plaster luka melindungi luka kecil daripada bakteria dan kotoran."
+  },
+  {
+    icon: "🧤",
+    text: "Sarung tangan digunakan untuk menyerap darah pada luka.",
+    correct: false,
+    explanation: "Sarung tangan melindungi doktor daripada kuman. Kain kasa digunakan untuk menyerap darah."
+  },
+  {
+    icon: "🔎",
+    text: "Pengepit digunakan untuk memotong kain pembalut.",
+    correct: false,
+    explanation: "Gunting digunakan untuk memotong pembalut, manakala pengepit untuk memegang kapas atau objek kecil."
+  }
+];
+
+const el = id => document.getElementById(id);
+
+let index = 0;
+let interval = null;
+let deadline = 0;
+let running = false;
+let score = 0;
+let combo = 0;
+let userAnswers = [];
+let answeredCurrent = false;
+
+// Mascot expressions mapping
+const mascotMoods = {
+  neutral: "🧑‍⚕️",
+  happy: "🥳",
+  thinking: "🤔",
+  wrong: "😵",
+  victory: "🏆"
+};
+
+function updateMascot(mood) {
+  el("mascot").textContent = mascotMoods[mood] || "🧑‍⚕️";
+}
+
+function showQuestion() {
+  answeredCurrent = false;
+  const q = questions[index];
+  
+  updateMascot("thinking");
+  el("progress").textContent = `Soalan ${index + 1} / ${questions.length}`;
+  el("icon").textContent = q.icon;
+  el("statement").textContent = q.text;
+
+  // Update progress bar
+  const progressPercent = ((index) / questions.length) * 100;
+  el("progressBar").style.width = `${progressPercent}%`;
+
+  // Reset Answer Box
+  const answerBox = el("answerBox");
+  answerBox.classList.add("hidden");
+  answerBox.className = "w-full mt-4 p-5 rounded-2xl font-bold text-lg md:text-xl text-center shadow-md hidden animate-pop-zoom";
+  answerBox.textContent = "";
+
+  // Reset interactive buttons
+  el("interactiveOptions").hidden = false;
+  el("btnTrue").disabled = false;
+  el("btnFalse").disabled = false;
+  el("btnTrue").classList.remove("opacity-40", "scale-95");
+  el("btnFalse").classList.remove("opacity-40", "scale-95");
+
+  // Control Buttons
+  el("reveal").disabled = false;
+  el("next").disabled = true;
+  el("next").textContent = index === questions.length - 1 ? "Selesaikan 🎉" : "Seterusnya ➜";
+}
+
+function submitAnswer(userChoice) {
+  if (!running || answeredCurrent) return;
+
+  answeredCurrent = true;
+  const q = questions[index];
+  const isCorrect = (userChoice === q.correct);
+
+  userAnswers[index] = {
+    chosen: userChoice,
+    correct: isCorrect,
+    question: q
+  };
+
+  // Combo & Score Calculation
+  if (isCorrect) {
+    combo++;
+    const bonus = combo > 1 ? combo * 20 : 0;
+    score += (100 + bonus);
+    
+    updateMascot("happy");
+    SoundEngine.playCorrect();
+    Confetti.burst();
+
+    if (combo > 1) {
+      el("comboBadge").classList.remove("hidden");
+      el("comboBadge").textContent = `🔥 COMBO x${combo}!`;
+      SoundEngine.playCombo();
+    }
+  } else {
+    combo = 0;
+    el("comboBadge").classList.add("hidden");
+    updateMascot("wrong");
+    SoundEngine.playWrong();
+  }
+
+  el("score").textContent = `⭐ ${score}`;
+
+  // Highlight choices visually
+  if (userChoice === true) {
+    el("btnFalse").classList.add("opacity-40", "scale-95");
+  } else {
+    el("btnTrue").classList.add("opacity-40", "scale-95");
+  }
+
+  el("btnTrue").disabled = true;
+  el("btnFalse").disabled = true;
+
+  // Answer feedback box
+  const answerBox = el("answerBox");
+  answerBox.classList.remove("hidden");
+  if (isCorrect) {
+    answerBox.classList.add("bg-emerald-100", "text-emerald-900", "border-2", "border-emerald-400");
+    answerBox.innerHTML = `🌟 <strong>TAHNIAH, TEPAТ SEKALI!</strong><br><span class="text-base font-medium">${q.explanation}</span>`;
+  } else {
+    answerBox.classList.add("bg-rose-100", "text-rose-900", "border-2", "border-rose-400");
+    answerBox.innerHTML = `💡 <strong>KURANG TEPAT!</strong> Jawapan sebenar: <strong>${q.correct ? 'BETUL' : 'SALAH'}</strong>.<br><span class="text-base font-medium">${q.explanation}</span>`;
+  }
+
+  el("reveal").disabled = true;
+  el("next").disabled = false;
+}
+
+function tick() {
+  const seconds = Math.max(0, Math.ceil((deadline - Date.now()) / 1000));
+  const timerEl = el("timer");
+  timerEl.querySelector("span").textContent = seconds;
+
+  if (seconds <= 10 && seconds > 0) {
+    timerEl.classList.add("text-rose-600", "animate-ping");
+    SoundEngine.playTick();
+  } else {
+    timerEl.classList.remove("text-rose-600", "animate-ping");
+  }
+
+  if (seconds === 0) {
+    finish(false);
+  }
+}
+
+function startGame() {
+  SoundEngine.playClick();
+  clearInterval(interval);
+  
+  index = 0;
+  score = 0;
+  combo = 0;
+  userAnswers = [];
+  running = true;
+  deadline = Date.now() + 60000;
+
+  el("score").textContent = `⭐ 0`;
+  el("comboBadge").classList.add("hidden");
+  el("start").classList.add("hidden");
+  el("restart").classList.add("hidden");
+  el("reveal").classList.remove("hidden");
+  el("next").classList.remove("hidden");
+
+  showQuestion();
+  tick();
+  interval = setInterval(tick, 200);
+}
+
+function finish(completed) {
+  clearInterval(interval);
+  running = false;
+  el("progressBar").style.width = `100%`;
+
+  if (completed) {
+    updateMascot("victory");
+    SoundEngine.playVictory();
+    Confetti.burst();
+  } else {
+    updateMascot("wrong");
+    SoundEngine.playWrong();
+  }
+
+  el("progress").textContent = "Rumusan Pencapaian";
+  el("icon").textContent = completed ? "🏆" : "⏰";
+  el("statement").textContent = completed
+    ? `Syabas & Tahniah! Anda Lulus Sebagai Doktor Muda Cilik dengan Markah ⭐ ${score}!`
+    : `Masa telah tamat! Mari semak jawapan bersama-sama.`;
+
+  el("interactiveOptions").hidden = true;
+
+  // Generate cheerful certificate & summary card
+  const answerBox = el("answerBox");
+  answerBox.classList.remove("hidden");
+  answerBox.className = "w-full mt-2 p-5 rounded-3xl bg-gradient-to-br from-yellow-50 to-teal-50 border-4 border-yellow-400 text-left text-slate-800 shadow-xl animate-pop-zoom text-sm md:text-base";
+
+  let summaryHTML = `
+    <div class="text-center mb-4">
+      <span class="text-3xl">🏅</span>
+      <h3 class="font-black text-teal-800 text-2xl">SIJIL DOKTOR MUDA CILIK</h3>
+      <p class="text-xs text-slate-500 font-bold">Dianugerahkan kepada wira cilik yang bersemangat!</p>
+    </div>
+    <div class="space-y-2 max-h-60 overflow-y-auto pr-1">
+  `;
+
+  questions.forEach((q, i) => {
+    const userRes = userAnswers[i];
+    const wasCorrect = userRes ? userRes.correct : false;
+    const icon = wasCorrect ? "✅" : "❌";
+    
+    summaryHTML += `
+      <div class="p-3 rounded-2xl ${wasCorrect ? 'bg-emerald-100/80 border border-emerald-300' : 'bg-rose-100/80 border border-rose-300'} flex items-start gap-3 shadow-sm">
+        <span class="text-2xl">${icon}</span>
+        <div>
+          <p class="font-black text-slate-800">${i + 1}. ${q.text}</p>
+          <p class="text-xs md:text-sm text-slate-600 font-medium mt-0.5">${q.explanation}</p>
+        </div>
+      </div>
+    `;
+  });
+
+  summaryHTML += `</div>`;
+  answerBox.innerHTML = summaryHTML;
+
+  el("reveal").classList.add("hidden");
+  el("next").classList.add("hidden");
+  el("restart").classList.remove("hidden");
+}
+
+el("start").onclick = startGame;
+el("restart").onclick = startGame;
+
+el("reveal").onclick = () => {
+  if (!running || answeredCurrent) return;
+  const q = questions[index];
+  submitAnswer(q.correct);
+};
+
+el("next").onclick = () => {
+  if (!running || el("next").disabled) return;
+  SoundEngine.playClick();
+  if (index === questions.length - 1) {
+    finish(true);
+  } else {
+    index++;
+    showQuestion();
+  }
+};
+
+// Sound SFX toggle
+el("soundToggle").onclick = () => {
+  SoundEngine.sfxMuted = !SoundEngine.sfxMuted;
+  el("soundToggle").textContent = SoundEngine.sfxMuted ? "🔇 Bunyi" : "🔊 Bunyi";
+  SoundEngine.playClick();
+};
+
+// Music BGM toggle
+el("bgmToggle").onclick = () => {
+  const isPlaying = SoundEngine.toggleBGM();
+  el("bgmToggle").textContent = isPlaying ? "🎶 Musik ON" : "🎵 Musik";
+  el("bgmToggle").classList.toggle("bg-purple-300", isPlaying);
+};
+
+// Fullscreen toggle
+el("fullscreen").onclick = async () => {
+  try {
+    if (!document.fullscreenElement) {
+      await document.documentElement.requestFullscreen();
+    } else {
+      await document.exitFullscreen();
+    }
+  } catch (err) {
+    console.log("Fullscreen unavailable");
+  }
+};
+</script>
+</body>
+</html>
